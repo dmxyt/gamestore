@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Cambiar barra superior Android a fucsia -->
+<meta name="theme-color" content="#FF00FF">
+<!-- Meta descripción para buscadores -->
+<meta name="description" content="DaemonixGames Store: Tu tienda gamer definitiva con los mejores videojuegos para Xbox, PlayStation y Nintendo. Explora, filtra y compra tus títulos favoritos de forma rápida y segura. ¡Vive la experiencia gamer al máximo!">
+
+<!-- Open Graph (Facebook, WhatsApp, Discord, etc.) -->
+<meta property="og:title" content="DaemonixGames Store">
+<meta property="og:description" content="Explora y compra los mejores videojuegos para Xbox, PlayStation y Nintendo en DaemonixGames. ¡La experiencia gamer definitiva!">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/dmxyt/dmx@dd75e30b59b26701bb6ec9f308110fc8c5da2856/file_00000000a27c61f9b15a2f2243d99a87.png">
+<meta property="og:url" content="https://daemonixgames.com">
+<meta property="og:type" content="website">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="DaemonixGames Store">
+<meta name="twitter:description" content="Explora y compra los mejores videojuegos para Xbox, PlayStation y Nintendo en DaemonixGames. ¡La experiencia gamer definitiva!">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/dmxyt/dmx@dd75e30b59b26701bb6ec9f308110fc8c5da2856/file_00000000a27c61f9b15a2f2243d99a87.png">
+<meta name="twitter:url" content="https://daemonixgames.com">
+<title>DaemonixGames | Store</title>
+<link rel="icon" href="https://cdn.jsdelivr.net/gh/dmxyt/dmx@dd75e30b59b26701bb6ec9f308110fc8c5da2856/file_00000000a27c61f9b15a2f2243d99a87.png" type="image/x-icon">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --color-primary:#ff00ff;
+  --color-secondary:#00ffff;
+  --bg-dark:#0a0a0f;
+  --text-light:#fff;
+  --card-radius:20px;
+  --modal-bg:rgba(0,0,0,0.9);
+}
+
+/* RESET */
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Orbitron',sans-serif;background:var(--bg-dark);color:var(--text-light);overflow-x:hidden;}
+
+/* HEADER */
+header{
+  display:flex; justify-content:space-between; align-items:center;
+  padding:20px 30px; position:relative;
+  background:linear-gradient(90deg,var(--color-primary),var(--color-secondary));
+  box-shadow:0 0 20px rgba(0,0,0,0.5);
+  z-index:100;
+}
+header .logo{display:flex;align-items:center;gap:10px;font-size:2rem;font-weight:bold;}
+header .logo img{height:50px;}
+
+/* BOTÓN HAMBURGUESA */
+.menu-btn{width:45px;height:45px;cursor:pointer;display:flex;justify-content:center;align-items:center;position:relative; z-index:101;}
+.menu-btn svg{transition: transform 0.6s ease;}
+.menu-btn.open svg{transform: rotate(90deg);}
+.menu-btn svg .line{transition: all 0.6s ease; stroke:#fff; stroke-width:10;}
+.menu-btn.open svg .top{transform: rotate(45deg) translate(12px,12px);}
+.menu-btn.open svg .middle{opacity:0;}
+.menu-btn.open svg .bottom{transform: rotate(-45deg) translate(12px,-12px);}
+
+/* MENÚ CIRCULAR */
+.menu-overlay{
+  position:fixed; top:50%; left:50%; width:500px; height:500px;
+  transform: translate(-50%,-50%) scale(0); background: radial-gradient(circle, rgba(0,0,0,0.95), rgba(0,0,0,0.8));
+  border-radius:50%; display:flex; justify-content:center; align-items:center;
+  pointer-events:none; transition: transform 0.7s cubic-bezier(0.68,-0.55,0.27,1.55);
+  z-index:999;
+  box-shadow:0 0 60px rgba(255,0,255,0.5),0 0 60px rgba(0,255,255,0.5);
+}
+.menu-overlay.active{transform: translate(-50%,-50%) scale(1); pointer-events:auto;}
+.menu-circle{position:relative; width:100%; height:100%;}
+.menu-circle a{
+  position:absolute; display:block; width:140px; text-align:center; padding:12px;
+  background: linear-gradient(45deg, var(--color-primary), var(--color-secondary));
+  border-radius:50px; color:#000; font-weight:bold; text-decoration:none;
+  box-shadow:0 0 20px var(--color-primary),0 0 20px var(--color-secondary);
+  transform: scale(0.5) rotate(0deg); opacity:0;
+  transition: transform 0.5s ease, opacity 0.5s ease;
+}
+.menu-circle a:nth-child(1){top:10%; left:50%; transform:translate(-50%,0);}
+.menu-circle a:nth-child(2){top:50%; right:10%; transform:translate(0,-50%);}
+.menu-circle a:nth-child(3){bottom:10%; left:50%; transform:translate(-50%,0);}
+.menu-overlay.active .menu-circle a{transform: scale(1) rotate(0deg); opacity:1;}
+.menu-circle a:hover{transform: scale(1.2); box-shadow:0 0 40px var(--color-primary),0 0 40px var(--color-secondary); color:#fff;}
+
+/* SPLASH SCREEN PROFESIONAL */
+#intro{
+  position:fixed; top:0; left:0; width:100%; height:100%;
+  background: radial-gradient(circle at center, #0a0a0f, #000000);
+  display:flex; flex-direction:column; justify-content:center; align-items:center; z-index:2000;
+}
+.intro-logo{
+  width:180px; 
+  animation: glowIntro 2s infinite alternate;
+  border-radius:50%;
+  box-shadow:0 0 40px var(--color-primary),0 0 40px var(--color-secondary);
+}
+#slogan{
+  margin-top:20px;font-size:1.6rem;color:var(--color-secondary);
+  border-right:3px solid var(--color-primary);
+  white-space:nowrap; overflow:hidden; width:0;
+  animation: typing 3s steps(30,end) 1s forwards;
+}
+@keyframes typing{from{width:0} to{width:26ch}}
+@keyframes glowIntro{
+  0%{filter:drop-shadow(0 0 10px var(--color-primary)) drop-shadow(0 0 10px var(--color-secondary)) scale(1);}
+  100%{filter:drop-shadow(0 0 40px var(--color-primary)) drop-shadow(0 0 40px var(--color-secondary)) scale(1.15);}
+}
+@keyframes fadeOutIntro{from{opacity:1;} to{opacity:0; pointer-events:none; display:none;}}
+
+/* CATALOGO */
+.cards-container{
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  gap:20px; padding:25px;
+}
+
+/* CARD ESTILO ÚNICO */
+.card{
+  background:linear-gradient(135deg, rgba(255,0,255,0.2), rgba(0,255,255,0.2));
+  border:1px solid var(--color-secondary);
+  border-radius:var(--card-radius);
+  overflow:hidden; text-align:center; position:relative;
+  transition:0.4s; cursor:pointer;
+  backdrop-filter: blur(10px);
+}
+.card img{width:100%; border-bottom:1px solid var(--color-secondary); transition:0.3s; border-radius:var(--card-radius) var(--card-radius) 0 0;}
+.card h4{margin:10px 5px; font-size:1rem; color:#fff;}
+.card:hover{transform:scale(1.07); box-shadow:0 0 25px var(--color-primary),0 0 25px var(--color-secondary);}
+.card:hover img{filter: drop-shadow(0 0 15px var(--color-primary)) drop-shadow(0 0 15px var(--color-secondary));}
+
+.price-tag{
+  position:absolute; top:10px; left:10px; background:rgba(0,0,0,0.7); padding:5px 10px; border-radius:10px;
+  display:flex; align-items:center; gap:5px; font-weight:bold; font-size:0.9rem;
+}
+.price-tag img{width:18px; height:18px;}
+
+/* BOTÓN COMPRAR */
+.daemonix-button{
+  margin:10px auto 15px auto; display:flex; align-items:center; justify-content:center;
+  gap:8px; padding:8px 0; width:85%; font-size:0.95rem; font-weight:bold; text-transform:uppercase;
+  border:none; border-radius:12px; cursor:pointer;
+  background: linear-gradient(45deg,var(--color-primary),var(--color-secondary));
+  transition:0.3s; color:#fff;
+}
+.daemonix-button:hover{transform:scale(1.05); box-shadow:0 0 15px var(--color-primary),0 0 15px var(--color-secondary);}
+.daemonix-button img{width:20px;height:20px;}
+
+/* MODAL COMPRAR */
+#modalComprar{
+  position:fixed; top:0; left:0; width:100%; height:100%;
+  display:none; justify-content:center; align-items:center;
+  background:var(--modal-bg); z-index:3000;
+}
+#modalComprar .modal-content{
+  background:#111; border:2px solid var(--color-secondary); border-radius:20px;
+  padding:25px; width:90%; max-width:400px; text-align:center;
+  animation:scaleUp 0.3s ease forwards;
+}
+#modalComprar h3{margin-bottom:15px;}
+#modalComprar img{width:120px; border-radius:12px; margin-bottom:15px;}
+#modalComprar button{margin-top:15px; padding:10px 20px; border:none; border-radius:12px; background:linear-gradient(45deg,var(--color-primary),var(--color-secondary)); color:#fff; cursor:pointer; transition:0.3s;}
+#modalComprar button:hover{transform:scale(1.05); box-shadow:0 0 15px var(--color-primary),0 0 15px var(--color-secondary);}
+@keyframes scaleUp{0%{transform:scale(0.5);opacity:0}100%{transform:scale(1);opacity:1}}
+
+/* FILTROS Y BUSCADOR */
+#filtros{text-align:center;margin:20px 0;}
+#filtros button{
+  background:var(--color-primary); color:#fff; border:none; padding:8px 16px; margin:5px; border-radius:12px;
+  cursor:pointer; transition:0.3s;
+}
+#filtros button:hover,#filtros button.active{background:var(--color-secondary); color:#000; box-shadow:0 0 12px var(--color-primary);}
+#buscador{
+  display:block;margin:10px auto 25px auto; padding:10px 15px; width:90%; max-width:300px; font-size:1rem; border-radius:12px;
+  border:2px solid var(--color-primary); background:#111; color:#fff; text-align:center; outline:none; transition:0.3s;
+}
+#buscador:focus{box-shadow:0 0 15px var(--color-secondary); border-color:var(--color-secondary);}
+
+/* FOOTER */
+footer {display:flex; flex-direction:column; justify-content:center; align-items:center; gap:10px; padding:25px; background:#111; color:#aaa; font-size:0.9rem; border-top:2px solid var(--color-secondary); margin-top:40px;}
+.footer-socials {display:flex; gap:20px; justify-content:center; align-items:center;}
+.footer-socials a {display:flex; flex-direction:column; align-items:center; justify-content:center; background: rgba(255,255,255,0.05); padding:8px 12px; border-radius:50px; text-decoration:none; color:#fff; font-size:0.8rem; font-weight:bold; gap:5px; transition:0.3s;}
+.footer-socials a img {width:24px; height:24px; filter: drop-shadow(0 0 5px var(--color-primary)) drop-shadow(0 0 5px var(--color-secondary));}
+.footer-socials a:hover {transform:scale(1.2); background:linear-gradient(45deg,var(--color-primary),var(--color-secondary)); color:#000; box-shadow:0 0 15px var(--color-primary),0 0 15px var(--color-secondary);}
+
+/* WHATSAPP */
+.whatsapp-float{position:fixed;width:60px;height:60px;bottom:20px;right:20px;background:#25D366;color:#fff;border-radius:50%;display:flex;justify-content:center;align-items:center;font-size:35px;box-shadow:0 0 15px #25D366;z-index:1000;transition:0.3s;}
+.whatsapp-float:hover{transform:scale(1.1);box-shadow:0 0 25px #25D366;}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .cards-container{grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:15px; padding:15px;}
+  .card h4{font-size:0.9rem;}
+  .daemonix-button{width:90%; font-size:0.85rem; padding:6px 0;}
+  #slogan{font-size:1.2rem;}
+}
+@media(max-width:480px){
+  .cards-container{grid-template-columns:repeat(auto-fit,minmax(120px,1fr)); gap:12px; padding:10px;}
+  .card h4{font-size:0.8rem;}
+  .daemonix-button{width:95%; font-size:0.8rem; padding:5px 0;}
+  #slogan{font-size:1rem;}
+}
+</style>
+</head>
+<body>
+
+<!-- SPLASH -->
+<div id="intro">
+  <img src="https://cdn.jsdelivr.net/gh/dmxyt/dmx@57f0b958dc9e5fdd058b6d582c462d703bda5fa9/20250902_193240.png" alt="Logo DmX" class="intro-logo">
+  <div id="slogan">DaemonixGames.com</div>
+</div>
+
+<!-- HEADER -->
+<header>
+  <div class="logo">
+    <img src="https://cdn.jsdelivr.net/gh/dmxyt/dmx@2966f9e8a87351202d68568f5fa2ec4f5da87346/file_0000000060306230a08fa0c21ed58fa4.png" alt="Logo DmX">
+    Daemonix
+  </div>
+  <div class="menu-btn" id="menu-btn">
+    <svg width="35" height="35" viewBox="0 0 100 100">
+      <path class="line top" d="M20,30 H80"/>
+      <path class="line middle" d="M20,50 H80"/>
+      <path class="line bottom" d="M20,70 H80"/>
+    </svg>
+  </div>
+</header>
+
+<!-- MENÚ CIRCULAR -->
+<div class="menu-overlay" id="menu-overlay">
+  <div class="menu-circle">
+    <a href="#xbox">Xbox</a>
+    <a href="#playstation">PlayStation</a>
+    <a href="#nintendo">Nintendo</a>
+  </div>
+</div>
+
+<!-- FILTROS -->
+<div id="filtros">
+  <button data-cat="all" class="active">Todos</button>
+  <button data-cat="xbox">Xbox</button>
+  <button data-cat="playstation">PlayStation</button>
+  <button data-cat="nintendo">Nintendo</button>
+</div>
+
+<!-- BUSCADOR -->
+<input type="text" id="buscador" placeholder="🔍 Buscar juego...">
+
+<!-- CATALOGO -->
+<section id="tienda">
+  <h2>DaemonixGames.com</h2>
+  <h3>🎮 Catálogo</h3>
+  <div class="cards-container" id="catalogo"></div>
+</section>
+
+<!-- MODAL COMPRAR -->
+<div id="modalComprar">
+  <div class="modal-content">
+    <h3 id="modalTitulo"></h3>
+    <img id="modalImagen" src="" alt="Juego">
+    <p>Precio: <strong>25.Q | 60 MXN</strong></p>
+    <button id="modalComprarBtn">Comprar Ahora</button>
+    <button id="modalCompartirBtn">🔗 Compartir Juego</button>
+  </div>
+</div>
+
+<script>
+// Botón Compartir
+document.getElementById('modalCompartirBtn').addEventListener('click', ()=>{
+  const titulo = document.getElementById('modalTitulo').innerText;
+  const url = window.location.href + `#${titulo.replace(/\s+/g,'-')}`;
+  navigator.clipboard.writeText(url).then(()=>{
+    alert(`¡Enlace copiado! 🔗\n${url}`);
+  });
+});
+</script>
+
+<style>
+#modalCompartirBtn{
+  margin-top:10px; padding:10px 20px; border:none; border-radius:12px;
+  background:linear-gradient(45deg,#00ffff,#ff00ff); color:#000; cursor:pointer;
+  transition:0.3s; font-weight:bold;
+}
+#modalCompartirBtn:hover{
+  transform:scale(1.05);
+  box-shadow:0 0 15px #00ffff,0 0 15px #ff00ff;
+}
+</style>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-text">
+    © Daemonix™ | Todos los derechos reservados
+  </div>
+  <div class="footer-socials">
+    <a href="https://youtube.com/@DaemonixGames" target="_blank">
+      <img src="https://img.icons8.com/ios-filled/24/ff0000/youtube-play.png" alt="YouTube">
+      YouTube
+    </a>
+    <a href="https://discord.gg/tuServidor" target="_blank">
+      <img src="https://img.icons8.com/ios-filled/24/00ffff/discord-logo.png" alt="Discord">
+      Discord
+    </a>
+    <a href="https://twitch.tv/DaemonixGames" target="_blank">
+      <img src="https://img.icons8.com/ios-filled/24/8000ff/twitch.png" alt="Twitch">
+      Twitch
+    </a>
+  </div>
+</footer>
+
+<!-- WHATSAPP -->
+<a href="https://wa.me/50245168190" class="whatsapp-float" target="_blank">💬</a>
+
+<script>
+// SPLASH SCREEN
+window.addEventListener('load', ()=>setTimeout(()=>{
+  document.getElementById('intro').style.opacity='0';
+  setTimeout(()=>document.getElementById('intro').style.display='none',1000);
+},5000));
+
+// MENÚ HAMBURGUESA
+const menuBtn = document.getElementById('menu-btn');
+const menuOverlay = document.getElementById('menu-overlay');
+menuBtn.addEventListener('click', ()=>{
+  menuBtn.classList.toggle('open');
+  menuOverlay.classList.toggle('active');
+});
+menuOverlay.querySelectorAll('a').forEach(a=>{
+  a.addEventListener('click', ()=>{
+    menuBtn.classList.remove('open');
+    menuOverlay.classList.remove('active');
+  });
+});
+
+// CATALOGO DINAMICO
+const juegos=[
+  {nombre:"Dead Island Definitive Edition",plataforma:"xbox",imagen:"https://cdn.mobygames.com/covers/2423860-dead-island-definitive-edition-xbox-one-front-cover.png"},
+  {nombre:"Dead Island: Riptide",plataforma:"xbox",imagen:"https://cdn.mobygames.com/covers/2423440-dead-island-riptide-definitive-edition-xbox-one-front-cover.png"},
+  {nombre:"Dead Island Retro Revenge",plataforma:"xbox",imagen:"https://cdn.mobygames.com/covers/1688437-dead-island-retro-revenge-xbox-one-front-cover.png"},
+  {nombre:"Mortal Kombat 11: Ultimate",plataforma:"xbox",imagen:"https://cdn.mobygames.com/covers/20035538-mortal-kombat-11-windows-apps-front-cover.png"},
+  {nombre:"Injustice 2 Legendary Edition",plataforma:"xbox",imagen:"https://cdn.mobygames.com/covers/2455543-injustice-2-legendary-edition-windows-apps-front-cover.jpg"},
+  {nombre:"Thief",plataforma:"xbox",imagen:"https://cdn.mobygames.com/covers/8430804-thief-xbox-one-front-cover.png"}
+];
+
+const catalogo=document.getElementById('catalogo');
+const precio="25.Q | 60 MXN";
+const logos={
+  xbox:"https://img.icons8.com/ios-filled/16/00ff00/xbox.png",
+  playstation:"https://img.icons8.com/ios-filled/16/0080ff/playstation.png",
+  nintendo:"https://img.icons8.com/ios-filled/16/ff0000/nintendo-switch.png"
+};
+
+// Render cards
+function renderCatalogo(){
+  catalogo.innerHTML="";
+  juegos.forEach(j=>{
+    const card=document.createElement('div');
+    card.className="card"; card.dataset.cat=j.plataforma;
+    card.innerHTML=`
+      <img src="${j.imagen}" alt="${j.nombre}">
+      <span class="price-tag"><img src="${logos[j.plataforma]}"> ${precio}</span>
+      <h4>${j.nombre} (${j.plataforma.toUpperCase()})</h4>
+      <button class="daemonix-button" data-nombre="${j.nombre}" data-imagen="${j.imagen}" data-plataforma="${j.plataforma}"><img src="${logos[j.plataforma]}"> Comprar</button>
+    `;
+    catalogo.appendChild(card);
+  });
+
+  // Botones comprar
+  document.querySelectorAll('.daemonix-button').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const nombre=btn.dataset.nombre;
+      const img=btn.dataset.imagen;
+      document.getElementById('modalTitulo').innerText=nombre;
+      document.getElementById('modalImagen').src=img;
+      document.getElementById('modalComprar').style.display='flex';
+    });
+  });
+}
+renderCatalogo();
+
+// FILTROS
+document.querySelectorAll('#filtros button').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('#filtros button').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    const cat=btn.dataset.cat;
+    document.querySelectorAll('.card').forEach(c=>{
+      c.style.display=(cat==="all"||c.dataset.cat===cat)?"block":"none";
+    });
+  });
+});
+
+// BUSCADOR
+document.getElementById('buscador').addEventListener('input',e=>{
+  const q=e.target.value.toLowerCase();
+  document.querySelectorAll('.card').forEach(c=>{
+    const n=c.querySelector('h4').textContent.toLowerCase();
+    c.style.display=n.includes(q)?"block":"none";
+  });
+});
+
+// CERRAR MODAL Y WHATSAPP
+const modal = document.getElementById('modalComprar');
+const comprarBtn = document.getElementById('modalComprarBtn');
+
+document.querySelectorAll('.daemonix-button').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    const nombre = btn.dataset.nombre;
+    const img = btn.dataset.imagen;
+    const plataforma = btn.dataset.plataforma;
+
+    document.getElementById('modalTitulo').innerText = nombre;
+    document.getElementById('modalImagen').src = img;
+
+    // Guardamos info en el botón de WhatsApp
+    comprarBtn.dataset.nombre = nombre;
+    comprarBtn.dataset.plataforma = plataforma;
+
+    modal.style.display = 'flex';
+  });
+});
+
+// Botón de comprar ahora
+comprarBtn.addEventListener('click', ()=>{
+  const nombre = comprarBtn.dataset.nombre;
+  const plataforma = comprarBtn.dataset.plataforma;
+  const mensaje = `Hola, quiero comprar el juego *${nombre}* para *${plataforma.toUpperCase()}* en DaemonixGames.`;
+
+  // Abre WhatsApp Web / App
+  window.open(`https://wa.me/50245168190?text=${encodeURIComponent(mensaje)}`, '_blank');
+
+  modal.style.display = 'none';
+});
+
+// Cerrar modal al dar click fuera del contenido
+modal.addEventListener('click', e=>{
+  if(e.target.id === 'modalComprar'){
+    modal.style.display = 'none';
+  }
+});
+</script>
+
+</body>
+</html>
